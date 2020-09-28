@@ -32,21 +32,22 @@ public:
     }
 
     T pop() {
+        
+        T x = -1;
 
         if(isEmpty()) {
-            cout << "Stack Underflow." << endl;
-            return -1;
+            return x;
         }else if(size == 1) {
-            T temp = head->data;
+            x = head->data;
             delete head;
             head = nullptr;
 
             size--;
-            return temp;
+            return x;
         }else {
             Node *temp = head;
             head = head->next;
-            T x = temp->data;
+            x = temp->data;
             delete temp;
             temp = nullptr;
 
