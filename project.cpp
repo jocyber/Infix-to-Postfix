@@ -1,3 +1,7 @@
+/*
+    An infix to postfix converter using the raylib game programming library for the graphics. Raylib requires many dependencies
+    if it's not being used in the default iDE which is notepad++. 
+*/
 #include <raylib.h>
 #include <iostream>
 #include <cstdlib>
