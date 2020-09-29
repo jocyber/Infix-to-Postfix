@@ -16,10 +16,10 @@ int stackPrior(char x)
 
 int isOperator(char x) {return (x == '+' ||  x == '-' || x == '*' || x == '/' ? 1 : 0);}
 
-bool isParenMatching(std::string expression) {
+bool isParenMatching(const std::string &expression) {
     Stack<char> st;
 
-    for(char x : expression) {
+    for(const char &x : expression) {
         if(x == '(' || x == '[' || x == '{')
             st.push(x);
 
@@ -41,7 +41,7 @@ bool isParenMatching(std::string expression) {
     return ((st.isEmpty()) ? true : false);
 }
 
-std::string conversion(std::string infix)
+std::string conversion(const std::string &infix)
 {
     Stack<char> st;
     std::string postfix = "";
@@ -72,12 +72,12 @@ std::string conversion(std::string infix)
     return postfix;
 }
 
-int evaluate(std::string postfix) {
+int evaluate(const std::string &postfix) {
 
     Stack<int> st;
     int result;
 
-    for(char x : postfix) {
+    for(const char &x : postfix) {
         if(isOperand(x)){
             st.push(x - '0');
         }

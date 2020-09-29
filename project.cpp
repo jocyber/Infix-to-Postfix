@@ -16,11 +16,15 @@ int main()
    bool buttonPressed = false;
    
    std::string input = "";
+   std::string inputCopy = "";
    int letterCount = 0;
+   int position = 0;
    std::string postfix;
+   const std::string underscore {"_"};
    
    Rectangle textbox {100, 200, 400, 40};
    Rectangle button {510, 200, 75, 40};
+
    
    InitWindow(WindowWidth, WindowHeight, "Infix to Postfix Converter");
    SetTargetFPS(30);
@@ -41,7 +45,6 @@ int main()
         static std::string temp;
         static std::string tempAnswer;
         
-        
         if(CheckCollisionPointRec(GetMousePosition(), textbox)) mouseOnText = true;
         else mouseOnText = false;
         
@@ -61,21 +64,40 @@ int main()
             while(key > 0)
             {
                 if((letterCount < MAX_CHAR_COUNT) && (((key >= 40) && (key <= 43)) || (key == 45) || (key == 47) || (key == 123) || (key == 125) || ((key >= 48) && (key <= 57)))) {
-                    char temp = (char)key;
-                    input.push_back(temp);
+                    char tempChar = (char)key;
+                    input.insert(position, 1, tempChar);
+                    inputCopy.insert(position, 1, tempChar);
                     letterCount++;
+                    position++;
                 }
                 
                 key = GetKeyPressed();
             }
             
-            
             if(IsKeyPressed(KEY_BACKSPACE))
             {
-                if(!(letterCount <= 0))
+                if(!(letterCount <= 0) && position - 1 >= 0) {
                     letterCount--;
-                    input.pop_back();
+                    position--;
+                    input.erase(position, 1);
+                    inputCopy.pop_back();
+                }
             }
+            
+            if(IsKeyPressed(KEY_LEFT)) {
+                if(position - 1 >= 0) {
+                    position--;
+                    inputCopy.pop_back();
+                }
+            }
+            if(IsKeyPressed(KEY_RIGHT)) {
+                if(position + 1 <= letterCount) {
+                    inputCopy.push_back(input[position]);
+                    position++;
+                }
+            }
+            
+            DrawText(underscore.c_str(), textbox.x + 6 + MeasureText(inputCopy.c_str(), 30), textbox.y + 12, 30, RED);
         }
 
         if(mouseOnText) DrawRectangleLines(textbox.x, textbox.y, textbox.width, textbox.height, RED);
