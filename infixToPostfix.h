@@ -1,7 +1,7 @@
-//file for the various functions used in converted from infix to postfix.
-
 #ifndef CONVERT
 #define CONVERT
+
+//file for the various functions used in converted from infix to postfix.
 
 #include <iostream>
 #include "StackADT.h"
